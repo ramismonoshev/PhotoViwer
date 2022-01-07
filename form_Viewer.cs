@@ -27,19 +27,17 @@ namespace App_PhotoVacances
         {
             InitializeComponent();
 
-            //Center the image in the middle of the screen
+
             this.CenterToScreen();
 
-            // Initialization of the ItemSorter
             listView_Picture.ListViewItemSorter = new CompareByIndex(listView_Picture);
 
-            // Initialization of the listPictures
+ 
             listPictures = new List<Picture>();
 
-            // Initialization of the index
+ 
             index = 0;
 
-            // Initialization of the WaitForm and show it
             using (frmWaitForm frmWaitForm = new frmWaitForm(LoadLinkPictures))
             {
                 frmWaitForm.ShowDialog(this);
@@ -47,14 +45,9 @@ namespace App_PhotoVacances
         }
 
 
-        #region Useful methods
 
-        /// <summary>
-        /// DownloadImageFromUrl()
-        /// Function who return the image from the url
-        /// </summary>
-        /// <param name="imageUrl">Image url</param>
-        /// <returns>return the image from the url</returns>
+
+
         private Image DownloadImageFromUrl(string imageUrl)
         {
             Image image = null;
@@ -82,38 +75,30 @@ namespace App_PhotoVacances
             return image;
         }
 
-        /// <summary>
-        /// LoadLinkPictures()
-        /// Load picture from URL
-        /// </summary>
         private void LoadLinkPictures()
         {
             Image image;
 
-            // Add 10 pictures to the listPictures
+  
             for (int i = 1; i < 11; i++)
             {
                 listPictures.Add(new Picture("Photo" + i, "https://source.unsplash.com/random"));
             }
 
-            // Download all images for the photos
             while (index < listPictures.Count)
             {
                 image = DownloadImageFromUrl(listPictures[index].Link);
 
                 AddPicture(image);
 
-                // Add delay betwenn two web request
+  
                 Thread.Sleep(1000);
 
             }
 
         }
 
-        /// <summary>
-        /// LoadFilePictures()
-        /// Load picture from your computer
-        /// </summary>
+
         private void LoadFilePictures()
         {
             openFileDialog_1.FileName = null;
@@ -134,11 +119,7 @@ namespace App_PhotoVacances
         }
 
 
-        /// <summary>
-        /// AddPicture()
-        /// Add picture to listView
-        /// </summary>
-        /// <param name="pictureFile">Picture to add to the listview</param>
+  
         private void AddPicture(Picture pictureFile)
         {
             imageList_1.Images.Add(pictureFile.Thumbnail) ;
@@ -146,11 +127,7 @@ namespace App_PhotoVacances
             listView_Picture.Items.Insert(0, pictureFile.Name, index++);
         }
 
-        /// <summary>
-        /// AddPicture()
-        /// Add picture to listView
-        /// </summary>
-        /// <param name="imageFile">Picture to add to the listview</param>
+ 
         private void AddPicture(Image imageFile)
         {
             imageList_1.Images.Add(imageFile);
